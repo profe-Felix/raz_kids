@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="refresh" content="1;url=https://www.kidsa-z.com/main/Login" />
+  <script>
+    window.onload = function() {
+      setTimeout(() => {
+        const interval = setInterval(() => {
+          const input = document.querySelector('input[name="teacher_login"]');
+          if (input) {
+            input.value = "yourteacherusername"; // Replace with your actual teacher username
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            clearInterval(interval);
+          }
+        }, 300);
+      }, 1000); // Wait for redirect
+    };
+  </script>
+</head>
+<body>
+  Loading Kids A-Z...
+</body>
+</html>
