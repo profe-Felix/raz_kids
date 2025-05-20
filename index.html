@@ -1,23 +1,57 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="1;url=https://www.kidsa-z.com/main/Login" />
-  <script>
-    window.onload = function() {
-      setTimeout(() => {
-        const interval = setInterval(() => {
-          const input = document.querySelector('input[name="teacher_login"]');
-          if (input) {
-            input.value = "yourteacherusername"; // Replace with your actual teacher username
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-            clearInterval(interval);
-          }
-        }, 300);
-      }, 1000); // Wait for redirect
-    };
-  </script>
+  <title>Kids A-Z Autofill</title>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+  </style>
 </head>
 <body>
-  Loading Kids A-Z...
+  <h2>Opening Kids A-Z...</h2>
+
+  <iframe id="kiframe" src="https://www.kidsa-z.com/main/Login" width="100%" height="700px" style="border:none;"></iframe>
+
+  <script>
+    const teacherName = "jfelix24"; // Pre-filled teacher username
+
+    const tryFillTeacher = () => {
+      const iframe = document.getElementById("kiframe");
+      if (!iframe) return;
+
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+      if (!iframeDoc) {
+        console.log("iframe not ready");
+        return;
+      }
+
+      const input = iframeDoc.querySelector('input[name="teacher_login"]');
+      if (input) {
+        input.value = teacherName;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        console.log("Filled teacher name.");
+        return true;
+      }
+
+      return false;
+    };
+
+    let attempts = 0;
+    const maxAttempts = 20;
+
+    const interval = setInterval(() => {
+      const filled = tryFillTeacher();
+      attempts++;
+      if (filled || attempts > maxAttempts) {
+        clearInterval(interval);
+      }
+    }, 500);
+  </script>
 </body>
 </html>
